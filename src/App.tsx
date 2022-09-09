@@ -1,5 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import { io } from "socket.io-client";
+import { BandList } from './components';
 
 const connectSocketServer = () => {
   const socket = io('http://localhost:4000',{
@@ -18,7 +19,6 @@ const App:FC = ():JSX.Element => {
   }, [ socket ])
 
   useEffect( () => {
-
     socket.on('connect', () => {
       setOnline( true );
     })
@@ -26,7 +26,6 @@ const App:FC = ():JSX.Element => {
   }, [ socket ])
 
   useEffect( () => {
-
     socket.on('disconnect', () => {
       setOnline( false );
     })
@@ -36,11 +35,11 @@ const App:FC = ():JSX.Element => {
     <div className="pt-5 px-20">
       <p className="font-semibold">Service status: <span className={online ? 'text-green-500' : 'text-red-500'}>{online ? 'Online' : 'Offline'}</span></p>
 
-      <h1 className="text-4xl my-5">BandNames</h1>
+      <h1 className="text-4xl my-5 font-bold">BandNames</h1>
       <hr />
-      <main className="flex flex-col lg:flex-row mt-5">
+      <main className="flex flex-col lg:flex-row mt-5 space-x-10">
         <section className="w-2/4">
-          Tabla
+          <BandList />
         </section>
         <section className="w-2/4">
           agregar
