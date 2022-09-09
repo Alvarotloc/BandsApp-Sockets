@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import { BandList } from './components';
+import { BandAdd } from "./components/BandAdd";
 
 const connectSocketServer = () => {
   const socket = io('http://localhost:4000',{
@@ -42,7 +43,7 @@ const App:FC = ():JSX.Element => {
           <BandList />
         </section>
         <section className="w-2/4">
-          agregar
+          <BandAdd />
         </section>
       </main>
     </div>
