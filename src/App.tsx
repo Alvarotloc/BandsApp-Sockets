@@ -1,32 +1,17 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useContext } from "react";
 import { BandList } from "./components";
 import { BandAdd } from "./components/BandAdd";
 import { IBanda } from "./interfaces";
 import { useSocket } from './hooks/useSocket';
+import { SocketContext } from './contexts/SocketContext';
 
 const App: FC = (): JSX.Element => {
-  const [bands, setBands] = useState<IBanda[]>([]);
+  // const [bands, setBands] = useState<IBanda[]>([]);
 
-  const {online,socket} = useSocket('http://localhost:4000');
-
-  useEffect(() => {
-    socket.on("current-bands", ({ bands }: { bands: IBanda[] }) => {
-      setBands(bands);
-    });
-  }, [socket]);
-
-  const votar = (id:string) => {
-    socket.emit('votar-banda', id);
-  }
-  const borrarBanda = (id:string) => {
-    socket.emit('borrar-banda',id);
-  }
-  const cambiarBanda = (id:string,nuevoNombre:string) => {
-    socket.emit('cambiar-banda',{id,nuevoNombre});
-  }
-  const agregarBanda = (nombre:string) => {
-    socket.emit('agregar-banda',nombre);
-  }
+  const {online} = useContext(SocketContext);
+  // const agregarBanda = (nombre:string) => {
+  //   socket.emit('agregar-banda',nombre);
+  // }
   return (
     <div className="pt-5 px-5 lg:px-20">
       <p className="font-semibold">
@@ -40,10 +25,10 @@ const App: FC = (): JSX.Element => {
       <hr />
       <main className="flex flex-col lg:flex-row mt-5 lg:space-x-10 space-y-5">
         <section className="w-full lg:w-2/4">
-          <BandList bands={bands} votar={votar} borrarBanda={borrarBanda} cambiarBanda={cambiarBanda}/>
+          <BandList />
         </section>
         <section className="w-full lg:w-2/4">
-          <BandAdd agregarBanda={agregarBanda}/>
+          {/* <BandAdd agregarBanda={agregarBanda}/> */}
         </section>
       </main>
     </div>

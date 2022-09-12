@@ -1,17 +1,19 @@
-import { FC, useState, useEffect } from "react";
+import { FC, useState, useEffect, useContext } from 'react';
 import { IBanda } from "../interfaces";
 import { ListRow } from "./";
+import { SocketContext } from '../contexts/SocketContext';
 
-export const BandList: FC<{
-  bands: IBanda[];
-  votar: Function;
-  borrarBanda: Function;
-  cambiarBanda: Function;
-}> = ({ bands, votar, borrarBanda, cambiarBanda }): JSX.Element => {
-  const [bandas, setBandas] = useState<IBanda[]>([]);
+export const BandList: FC = (): JSX.Element => {
+  const [bands, setBands] = useState<IBanda[]>([]);
+  const {socket} = useContext(SocketContext);
+
+
   useEffect(() => {
-    setBandas(bands);
-  }, [bands]);
+        socket.on("current-bands", ({ bands }: { bands: IBanda[] }) => {
+      setBands(bands);
+    });
+    return () => {socket.off('current-bands')};
+  }, [socket]);
 
   return (
     <>
@@ -26,16 +28,13 @@ export const BandList: FC<{
           </tr>
         </thead>
         <tbody>
-          {bandas.map((band) => {
+          {bands.map((band) => {
             return (
               <ListRow
                 key={band.id}
                 band={band}
                 bands={bands}
-                setBands={setBandas}
-                votar={votar}
-                borrarBanda={borrarBanda}
-                cambiarBanda={cambiarBanda}
+                setBands={setBands}
               />
             );
           })}
