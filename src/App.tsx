@@ -47,6 +47,9 @@ const App: FC = (): JSX.Element => {
   const cambiarBanda = (id:string,nuevoNombre:string) => {
     socket.emit('cambiar-banda',{id,nuevoNombre});
   }
+  const agregarBanda = (nombre:string) => {
+    socket.emit('agregar-banda',nombre);
+  }
   return (
     <div className="pt-5 px-5 lg:px-20">
       <p className="font-semibold">
@@ -63,7 +66,7 @@ const App: FC = (): JSX.Element => {
           <BandList bands={bands} votar={votar} borrarBanda={borrarBanda} cambiarBanda={cambiarBanda}/>
         </section>
         <section className="w-full lg:w-2/4">
-          <BandAdd />
+          <BandAdd agregarBanda={agregarBanda}/>
         </section>
       </main>
     </div>
