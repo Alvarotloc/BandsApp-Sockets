@@ -37,6 +37,10 @@ const App: FC = (): JSX.Element => {
       setBands(bands);
     });
   }, [socket]);
+
+  const votar = (id:string) => {
+    socket.emit('votar-banda', id);
+  }
   return (
     <div className="pt-5 px-5 lg:px-20">
       <p className="font-semibold">
@@ -50,7 +54,7 @@ const App: FC = (): JSX.Element => {
       <hr />
       <main className="flex flex-col lg:flex-row mt-5 lg:space-x-10 space-y-5">
         <section className="w-full lg:w-2/4">
-          <BandList bands={bands} />
+          <BandList bands={bands} votar={votar}/>
         </section>
         <section className="w-full lg:w-2/4">
           <BandAdd />
