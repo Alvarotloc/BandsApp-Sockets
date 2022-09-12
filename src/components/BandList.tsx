@@ -2,7 +2,7 @@ import { FC, useState, useEffect } from "react";
 import { IBanda } from "../interfaces";
 import { ListRow } from "./";
 
-export const BandList: FC<{ bands: IBanda[],votar : Function }> = ({ bands, votar }): JSX.Element => {
+export const BandList: FC<{ bands: IBanda[],votar : Function, borrarBanda:Function, cambiarBanda:Function }> = ({ bands, votar,borrarBanda,cambiarBanda }): JSX.Element => {
   const [bandas, setBandas] = useState<IBanda[]>([]);
   useEffect(() => {
     setBandas(bands);
@@ -23,7 +23,7 @@ export const BandList: FC<{ bands: IBanda[],votar : Function }> = ({ bands, vota
         <tbody>
           {
             bandas.map((band) => {
-              return <ListRow key={band.id} band={band} bands={bands} setBands={setBandas} votar={votar} />;
+              return <ListRow key={band.id} band={band} bands={bands} setBands={setBandas} votar={votar} borrarBanda={borrarBanda} cambiarBanda={cambiarBanda}/>;
             })}
         </tbody>
       </table>

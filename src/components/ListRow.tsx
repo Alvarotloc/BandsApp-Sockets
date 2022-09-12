@@ -5,8 +5,10 @@ export const ListRow: FC<{
   band: IBanda;
   bands: IBanda[];
   setBands: Function;
-  votar : Function
-}> = ({ band, bands, setBands, votar }): JSX.Element => {
+  votar : Function;
+  borrarBanda:Function;
+  cambiarBanda : Function;
+}> = ({ band, bands, setBands, votar, borrarBanda, cambiarBanda }): JSX.Element => {
   const { id, nombre, votos } = band;
   const cambioNombre = (e: React.ChangeEvent<HTMLInputElement>) => {
     const nuevoNombre = e.target.value;
@@ -18,7 +20,7 @@ export const ListRow: FC<{
     }))
   };
   const onPerdioFoco = () => {
-    console.log('hola')
+    cambiarBanda(id,nombre);
   }
   return (
     <tr>
@@ -41,7 +43,7 @@ export const ListRow: FC<{
         <h3 className="text-3xl font-medium text-center">{votos}</h3>
       </td>
       <td className="lg:p-2">
-        <button className="py-2 w-full text-white rounded-md bg-red-500 hover:bg-red-600 transition-colors cursor-pointer">
+        <button onClick={() => borrarBanda(id)} className="py-2 w-full text-white rounded-md bg-red-500 hover:bg-red-600 transition-colors cursor-pointer">
           Borrar
         </button>
       </td>
