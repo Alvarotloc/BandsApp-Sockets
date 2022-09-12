@@ -1,17 +1,12 @@
 import { FC, useContext } from "react";
 import { BandList } from "./components";
 import { BandAdd } from "./components/BandAdd";
-import { IBanda } from "./interfaces";
-import { useSocket } from './hooks/useSocket';
 import { SocketContext } from './contexts/SocketContext';
 
 const App: FC = (): JSX.Element => {
-  // const [bands, setBands] = useState<IBanda[]>([]);
-
+  
   const {online} = useContext(SocketContext);
-  // const agregarBanda = (nombre:string) => {
-  //   socket.emit('agregar-banda',nombre);
-  // }
+
   return (
     <div className="pt-5 px-5 lg:px-20">
       <p className="font-semibold">
@@ -28,7 +23,7 @@ const App: FC = (): JSX.Element => {
           <BandList />
         </section>
         <section className="w-full lg:w-2/4">
-          {/* <BandAdd agregarBanda={agregarBanda}/> */}
+          <BandAdd />
         </section>
       </main>
     </div>

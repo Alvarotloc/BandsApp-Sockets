@@ -25,7 +25,7 @@ export const ListRow: FC<{
   };
 
   const onPerdioFoco = () => {
-    socket.emit("cambiar-banda", { id, nombre });
+    socket.emit("cambiar-banda", { id, nuevoNombre:nombre });
   };
 
   const votar = () => {

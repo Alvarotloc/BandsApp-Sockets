@@ -1,14 +1,15 @@
-import { FC, useState } from "react";
+import { FC, useState, useContext } from 'react';
+import { SocketContext } from '../contexts/SocketContext';
 
-export const BandAdd: FC<{ agregarBanda: Function }> = ({
-  agregarBanda,
-}): JSX.Element => {
+export const BandAdd: FC = (): JSX.Element => {
   const [newName, setNewName] = useState<string>("");
+
+  const {socket} = useContext(SocketContext);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (newName.trim() !== "") {
-      agregarBanda(newName);
+      socket.emit('agregar-banda',newName);
       setNewName("");
     }
   };
