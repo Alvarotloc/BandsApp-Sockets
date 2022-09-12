@@ -11,3 +11,7 @@ export interface useSocketInterface {
     socket : Socket<DefaultEventsMap,DefaultEventsMap>;
     online : boolean;
 }
+
+export interface IChildren {
+    children : JSX.Element | JSX.Element[]
+}
